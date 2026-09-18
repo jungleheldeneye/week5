@@ -74,13 +74,15 @@ static void dialog_render(Widget *self) {
 }
 
 static void widget_noop_event(Widget *self, int code) { (void)self; (void)code; }
+static void dialog_noop_event(Widget *self, int code) { (void)self; (void)code; }
+
 
 /* 다이얼로그는 이벤트 코드 1(닫기)을 받으면 스스로 정리(파괴)된다 */
 static void dialog_on_event(Widget *self, int code);
 
 static const VTable BUTTON_VT = { button_render, widget_noop_event };
 static const VTable LABEL_VT  = { label_render,  widget_noop_event };
-static const VTable DIALOG_VT = { dialog_render, dialog_on_event  };
+static const VTable DIALOG_VT = { dialog_render, dialog_noop_event };
 
 static Widget *widget_new(const VTable *vt, int id, const char *label) {
 
@@ -102,7 +104,8 @@ static Widget *widget_new(const VTable *vt, int id, const char *label) {
 }
 
 static void widget_destroy(Widget *w) {
-    free(w);          
+    free(w); 
+
 }
 
 /* ── Screen ──────────────────────────────────────────────────── */
