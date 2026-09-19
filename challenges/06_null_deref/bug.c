@@ -47,7 +47,8 @@ static char *skip_ws(char *s) {
 
 static void parse_headers(char *text, Headers *h) {
     for (char *line = strtok(text, "\n"); line != NULL; line = strtok(NULL, "\n")) {
-        char *colon = strchr(line, ':');   
+        char *colon = strchr(line, ':');
+        
 
         *colon = '\0';                    
         char *key = line;
@@ -66,7 +67,7 @@ int main(void) {
     char raw[] =
         "Host: example.com\n"
         "Accept: */*\n"
-        "Connection\n"                     
+        "Connection:\n"                     
         "User-Agent: memdbg-cli\n";
 
     Headers h = { .count = 0 };
